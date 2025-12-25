@@ -14,40 +14,28 @@ app.use(express.json());
 app.use('/api/chat', chatRoutes);
 app.use('/api/user', userRoutes);
 
-// Health check endpoint
+// Health check
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
+  res.json({
+    status: 'OK',
     timestamp: new Date().toISOString(),
     message: 'AI Fitness Companion API is running'
   });
 });
 
-// Root endpoint
+// Root
 app.get('/', (req, res) => {
   res.json({
     message: 'AI Fitness Companion API',
-    version: '1.0.0',
-    endpoints: {
-      health: '/health',
-      chat: '/api/chat/message',
-      user: '/api/user/profile'
-    }
+    version: '1.0.0'
   });
 });
 
-// Error handling middleware
+// Error handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    success: false,
-    error: 'Something went wrong!'
-  });
+  console.error('ERROR:', err);
+  res.status(500).json({ error: 'Internal Server Error' });
 });
 
-/**
- * 🔴 IMPORTANT CHANGE FOR VERCEL
- * ❌ Removed app.listen()
- * ✅ Exporting app instead
- */
+// 🚨 REQUIRED FOR VERCEL
 module.exports = app;

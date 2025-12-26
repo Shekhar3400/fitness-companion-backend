@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-// ✅ DIRECT IMPORT (MATCHES DIRECT EXPORT)
-const generateFitnessResponse = require("../services/openaiService");
+// ✅ CORRECT IMPORT (OBJECT EXPORT → DESTRUCTURE)
+const { generateFitnessResponse } = require("../services/openaiService");
 
 router.post("/message", async (req, res) => {
   try {

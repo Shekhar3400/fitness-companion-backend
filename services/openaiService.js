@@ -110,4 +110,5 @@ Keep responses concise, actionable, encouraging, and adaptive.`;
 };
 
 /* 🔴 IMPORTANT EXPORT (MATCHES CONTROLLER) */
-module.exports = { generateFitnessResponse };
+//module.exports = { generateFitnessResponse };
+module.exports = generateFitnessResponse;

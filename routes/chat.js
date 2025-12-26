@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-// ✅ CORRECT import (matches direct export)
+// ✅ DIRECT IMPORT (MATCHES DIRECT EXPORT)
 const generateFitnessResponse = require("../services/openaiService");
 
 router.post("/message", async (req, res) => {
@@ -14,15 +14,12 @@ router.post("/message", async (req, res) => {
       });
     }
 
-    const aiReply = await generateFitnessResponse(userContext, message);
+    const reply = await generateFitnessResponse(userContext, message);
 
-    return res.status(200).json({
-      reply: aiReply
-    });
+    return res.status(200).json({ reply });
 
   } catch (error) {
     console.error("❌ Chat API error:", error);
-
     return res.status(200).json({
       reply: "Sorry, I had trouble answering that. Please try again."
     });

@@ -1,3 +1,36 @@
+const OpenAI = require("openai");
+
+let openai;
+
+if (!process.env.OPENAI_API_KEY) {
+  console.error("❌ OPENAI_API_KEY is missing");
+} else {
+  openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+}
+
+async function generateFitnessResponse(userContext = {}, message = "") {
+  if (!openai) {
+    throw new Error("OpenAI client not initialized");
+  }
+
+  const systemPrompt = buildSystemPrompt(userContext);
+
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: message }
+    ],
+    temperature: 0.7,
+    max_tokens: 500
+  });
+
+  return completion.choices[0].message.content;
+}
+
+/* 🔽 YOUR LOGIC — UNCHANGED */
 const buildSystemPrompt = (context = {}) => {
   const {
     personality = 'balanced',
@@ -75,3 +108,6 @@ ${sleepGuidance}
 
 Keep responses concise, actionable, encouraging, and adaptive.`;
 };
+
+/* 🔴 IMPORTANT EXPORT (MATCHES CONTROLLER) */
+module.exports = { generateFitnessResponse };

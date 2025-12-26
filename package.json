@@ -1,7 +1,7 @@
 {
   "name": "fitness-companion-backend",
   "version": "1.0.0",
-  "description": "AI Fitness Companion Backend API with OpenAI Integration",
+  "description": "AI Fitness Companion Backend API with Groq Integration",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,7 +10,7 @@
   "keywords": [
     "fitness",
     "ai",
-    "openai",
+    "groq",
     "chatbot",
     "health"
   ],
@@ -20,7 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.22.1",
-    "openai": "^4.104.0"
+    "groq-sdk": "^0.37.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"

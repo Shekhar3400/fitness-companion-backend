@@ -1,24 +1,24 @@
-const OpenAI = require("openai");
+const Groq = require("groq-sdk");
 
-let openai;
+let groq;
 
-if (!process.env.OPENAI_API_KEY) {
-  console.error("❌ OPENAI_API_KEY is missing");
+if (!process.env.GROQ_API_KEY) {
+  console.error("❌ GROQ_API_KEY is missing");
 } else {
-  openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+  groq = new Groq({
+    apiKey: process.env.GROQ_API_KEY,
   });
 }
 
 async function generateFitnessResponse(userContext = {}, message = "") {
-  if (!openai) {
-    throw new Error("OpenAI client not initialized");
+  if (!groq) {
+    throw new Error("Groq client not initialized");
   }
 
   const systemPrompt = buildSystemPrompt(userContext);
 
-  const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+  const completion = await groq.chat.completions.create({
+    model: "llama3-8b-8192",
     messages: [
       { role: "system", content: systemPrompt },
       { role: "user", content: message }
@@ -30,7 +30,7 @@ async function generateFitnessResponse(userContext = {}, message = "") {
   return completion.choices[0].message.content;
 }
 
-/* 🔽 YOUR LOGIC — UNCHANGED */
+/* 🔽 YOUR LOGIC (UNCHANGED) */
 const buildSystemPrompt = (context = {}) => {
   const {
     personality = 'balanced',
@@ -109,6 +109,4 @@ ${sleepGuidance}
 Keep responses concise, actionable, encouraging, and adaptive.`;
 };
 
-/* 🔴 IMPORTANT EXPORT (MATCHES CONTROLLER) */
-//module.exports = { generateFitnessResponse };
-module.exports = generateFitnessResponse;
+module.exports = { generateFitnessResponse };

@@ -30,7 +30,7 @@ async function generateFitnessResponse(userContext = {}, message = "") {
   return completion.choices[0].message.content;
 }
 
-/* 🔽 YOUR LOGIC (UNCHANGED) */
+/* ===== YOUR LOGIC (UNCHANGED) ===== */
 const buildSystemPrompt = (context = {}) => {
   const {
     personality = 'balanced',
@@ -109,4 +109,5 @@ ${sleepGuidance}
 Keep responses concise, actionable, encouraging, and adaptive.`;
 };
 
+/* ✅ EXPORT (MATCHES CONTROLLER IMPORT) */
 module.exports = { generateFitnessResponse };

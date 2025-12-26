@@ -1,4 +1,4 @@
-const { generateFitnessResponse } = require('../services/openaiService');
+const { generateFitnessResponse } = require('../services/groqService');
 
 const handleChatMessage = async (req, res) => {
   try {
